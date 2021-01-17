@@ -1,0 +1,67 @@
+﻿@model Cliente;
+
+<h3>Editar</h3>
+
+@using (Html.BeginForm("Edit", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-create" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ClienteId)
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label label-cpt">Razão Social<span style="color:red"> *</span></label>
+                    @Html.EditorFor(model => model.razao_social, new { htmlAttributes = new { @class = "form-control", placeholder = "Razão Social" } })
+                    @Html.ValidationMessageFor(model => model.razao_social, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label label-cpt">CNPJ<span style="color:red"> *</span></label>
+                    @Html.EditorFor(model => model.cnpj, new { htmlAttributes = new { @class = "form-control", placeholder = "CNPJ", id = "cnpj" } })
+                    @Html.ValidationMessageFor(model => model.cnpj, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label label-cpt">Data de Fundação<span style="color:red"> *</span></label>
+                    @Html.EditorFor(model => model.data_fundacao, new { htmlAttributes = new { @class = "form-control", placeholder = "Data de Fundação" } })
+                    @Html.ValidationMessageFor(model => model.data_fundacao, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label label-cpt">Capital</label>
+                    @Html.EditorFor(model => model.capital, new { htmlAttributes = new { @class = "form-control", placeholder = "Capital" } })
+                    @Html.ValidationMessageFor(model => model.capital, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <div class="kt-radio-inline">
+                        <label class="kt-radio kt-radio--bold kt-radio--success" style="font-size:14px !important;">
+                            @Html.RadioButtonFor(model => model.status_cliente, true, new { @checked = "checked", id = "M" }) Ativo
+                            <span></span>
+                        </label>
+                        <label class="kt-radio kt-radio--bold kt-radio--success" style="font-size:14px !important;">
+                            @Html.RadioButtonFor(model => model.status_cliente, false, new { @id = "F" }) Inativo
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+                @Html.EditorFor(model => model.classificacao, new { htmlAttributes = new { @id = "classificacao", style = "display:none" } })
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success"> Salvar Cliente</button>
+                    <a onclick="window.history.back()" class="btn btn-danger" style="color:#fff;"><span>Voltar</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="~/Scripts/mask.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.maskMoney.min.js" type="text/javascript"></script>
+<script>
+    $("#cnpj").inputmask("mask", {
+        "mask": "99.999.999/9999-99"
+    });
+    $('#capital').maskMoney({ showSymbol: true, symbol: "R$", decimal: ",", thousands: "." });
+</script>
